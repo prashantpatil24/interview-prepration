@@ -1,68 +1,169 @@
 <!DOCTYPE html>
-<html>
-<head>Todo App</head>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Todo App</title>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #f5f5f5;
+            padding: 30px;
+        }
+
+        .root {
+            width: 450px;
+            margin: auto;
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 6px rgba(0,0,0,.2);
+        }
+
+        input {
+            width: 70%;
+            padding: 10px;
+            font-size: 16px;
+        }
+
+        button {
+            padding: 10px 14px;
+            cursor: pointer;
+            margin-left: 5px;
+        }
+
+        ul {
+            list-style: none;
+            padding: 0;
+            margin-top: 20px;
+        }
+
+        li {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 10px;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+
+        .completed {
+            text-decoration: line-through;
+            color: gray;
+        }
+
+        .actions button {
+            margin-left: 5px;
+        }
+
+        .empty {
+            color: gray;
+            text-align: center;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+
 <body>
+
 <div class="root">
-    <input id="todo" value="" placeholder="enter todo" />
-    <button id="add-todo" value="">Add Todo</button>
+
+    <input
+        id="todo"
+        type="text"
+        placeholder="Enter todo..."
+    >
+
+    <button id="add-todo">Add Todo</button>
+
     <ul id="todos"></ul>
+
 </div>
-</body>
+
 <script>
-  
-const todos = []
-  const todo = document.getElementById('todo')
-  const btnAdd = document.getElementById("add-todo")
-  const list = document.getElementById("todos")
 
+const todos = [];
 
-  //render todos
-  function renderTodo(){
-       list.innerHTML = "";
-       todos.forEach((todo,index)=>{
-         const li = document.createElement("li")
-         const completedStyle = todo.completed ? 'line-through': 'normal'
-         li.innerHTML = `
-               <span style="text-decoration:${completedStyle}">
-                   ${todo.text}
-               </span>
-               <button onClick="markTodo(${index})">Mark Completed</button>
-               <button onClick="deleteTodo(${index})">Delete</button>
-         `
-         list.append(li)
-      })
+const todoInput = document.getElementById("todo");
+const btnAdd = document.getElementById("add-todo");
+const list = document.getElementById("todos");
 
+function renderTodo() {
 
-  }
+    list.innerHTML = "";
 
+    if (todos.length === 0) {
+        list.innerHTML = "<p class='empty'>No todos available.</p>";
+        return;
+    }
 
-  //add todo
-  function addTodo (){
-     const value = todo.value.trim()
-     if(!value){
-       return
-     }
-     todos.push({
-        text : value,
-        completed : false
-     })
-     todo.value = ""
-     renderTodo()
-  }
+    todos.forEach((todo, index) => {
 
+        const li = document.createElement("li");
 
-  //mark completed
-  function markTodo(index){
-       todos[index].completed=!todos[index].completed;
-       renderTodo()
-  }
-  //delete todo
-  function deleteTodo(index){
-     todos.splice(index,1);
-     renderTodo()
-  }
+        li.innerHTML = `
+            <span class="${todo.completed ? "completed" : ""}">
+                ${todo.text}
+            </span>
 
+            <div class="actions">
+                <button onclick="markTodo(${index})">
+                    ${todo.completed ? "Undo" : "Complete"}
+                </button>
 
-  btnAdd.addEventListener("click", addTodo)
+                <button onclick="deleteTodo(${index})">
+                    Delete
+                </button>
+            </div>
+        `;
+
+        list.appendChild(li);
+    });
+}
+
+function addTodo() {
+
+    const value = todoInput.value.trim();
+
+    if (!value) {
+        alert("Please enter a todo.");
+        return;
+    }
+
+    todos.push({
+        text: value,
+        completed: false
+    });
+
+    todoInput.value = "";
+    todoInput.focus();
+
+    renderTodo();
+}
+
+function markTodo(index) {
+    todos[index].completed = !todos[index].completed;
+    renderTodo();
+}
+
+function deleteTodo(index) {
+    todos.splice(index, 1);
+    renderTodo();
+}
+
+btnAdd.addEventListener("click", addTodo);
+
+todoInput.addEventListener("keydown", (e) => {
+    if (e.key === "Enter") {
+        addTodo();
+    }
+});
+
+renderTodo();
+
 </script>
+
+</body>
 </html>
