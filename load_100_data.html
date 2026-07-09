@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Load More Data</title>
+    <style>
+        body {
+            font-family: Arial;
+            max-width: 600px;
+            margin: 40px auto;
+        }
+
+        ul {
+            padding: 0;
+        }
+
+        li {
+            list-style: none;
+            padding: 10px;
+            border-bottom: 1px solid #ddd;
+        }
+
+        #loader {
+            margin: 15px 0;
+            font-weight: bold;
+        }
+
+        button {
+            padding: 10px 20px;
+            cursor: pointer;
+        }
+
+        button:disabled {
+            opacity: .5;
+            cursor: not-allowed;
+        }
+    </style>
+</head>
+<body>
+<h2>Todos</h2>
+
+<ul id="products"></ul>
+<div id="loader"></div>
+<button id="load-more">Load More</button>
+<script>
+   let LIMIT = 100
+   let page = 0
+   let startIndex = 20
+   let loading = false
+
+   const list = document.getElementById("products")
+   const loader = document.getElementById("loader")
+   const btnMore = document.getElementById("load-more")
+
+   function render(data){
+      const fragment = document.createDocumentFragment()
+      data.forEach(element => {
+         const li = document.createElement("li")
+         li.textContent = `${element.id} - ${element.todo}`;
+         fragment.appendChild(li)
+      });
+      list.appendChild(fragment)
+   }
+
+   async function fetchMore(){
+      if(loading) return
+      btnMore.disabled = true
+      loader.textContent = "loading..."
+
+      try{
+           loading = true
+           
+           const response = await fetch( `https://dummyjson.com/todos?limit=${startIndex}&skip=${page}`);
+           if (!response.ok) {
+                throw new Error("Failed to fetch todos");
+           }
+
+           const data = await response.json()
+           page = page + startIndex
+
+           if(page === LIMIT){
+             btnMore.disabled = true
+             loader.textContent = "No More Data"
+           }
+           render(data.todos);
+           
+      }catch(e){
+        console.log("api failing", e)
+      }finally{
+        loading = false;
+        if (page < LIMIT) {
+            loader.textContent = "";
+            btnMore.disabled = false;
+        }
+      }
+   }
+
+   fetchMore()
+
+   btnMore.addEventListener("click", fetchMore)
+
+</script>
+</body>
+</html>
