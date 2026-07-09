@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+<head>Search Product</head>
+<body>
+    <div class="root">
+        <input id="search" placeholder="search..." />
+        <ul id="search-list"></ul>
+    </div>
+</body>
+    <script>
+        const input = document.getElementById("search")
+        const list = document.getElementById("search-list")
+
+        let timer
+        let product = []
+        let cache = {}
+
+        //render list
+        function render(items){
+            product = items
+            items.forEach((item,index)=>{
+                const li = document.createElement("li")
+                li.textContent = `<span>${item.title}</span>`
+                list.append(li)
+            })
+        }
+        //search result
+        async function searchResult(value){
+            if(value in cache){
+                render(cache[value])
+            }
+            const result = await fetch(`https://dummyjson.com/products/search?q=${value}`)
+            const data = await result.json()
+            cache[value] = data.products
+            render(data.products)
+        }
+        //search 
+        function search(e){
+            const value = e.target.value.trim()
+            clearTimeout(timer)
+            if(!value){
+                list.innerHTML = ""
+                return 
+            }
+            timer = setTimeout(()=>{
+                searchResult(value)
+            }, 1000)
+        } 
+        input.addEventListener("input",search)
+    </script>
+</html>
