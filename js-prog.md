@@ -1,4 +1,4 @@
-# Curry Sum Function Examples
+# 1. Curry Sum Function Examples
  
 ```javascript
 //normal curry function
