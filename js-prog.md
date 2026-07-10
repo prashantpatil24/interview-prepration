@@ -1,6 +1,8 @@
+# JavaScript & React Interview Programs (Practice Collection)
+
 # 1. Curry Function
- 
-```javascript
+
+``` javascript
 //normal curry function
 function sum(a){
     return function(b){
@@ -31,9 +33,9 @@ console.log(arrow_short_sum(1)(2)())//3
 console.log(arrow_short_sum(1)(2)(3)())//6
 ```
 
-# 2. Flat array with different method
+# 2. flat array
 
-```javascript
+``` javascript
 const biDimensionalArr = [11, [22, 33], [44, 55], [66, 77], 88, 99];
 
 //default method
@@ -50,9 +52,10 @@ function myFlat(arr){
 }
 console.log(myFlat(biDimensionalArr)) // [11,22,33,44,55,66,77,88,99]
 ```
-# 3. Find Duplicate Characters in String
- 
-```javascript
+
+# 3. find duplicate characters
+
+``` javascript
 
 function findDuplicates(str) {
     const map = {};
@@ -71,9 +74,10 @@ function findDuplicates(str) {
 
 console.log(findDuplicates("programming")); // ['r','m','g']
 ```
-# 4. Remove duplicate without in build 
- 
-```javascript
+
+# 4. remove duplicate characters
+
+``` javascript
 
 function removeDuplicatesByFlag(str) {
     const seen = {};
@@ -91,9 +95,10 @@ function removeDuplicatesByFlag(str) {
 
 console.log(removeDuplicates("programming")); //[ 'p', 'r', 'o',   'g', 'a', 'm', 'i', 'n']
 ```
-# 6. Return only unique (non-repeating) characters
- 
-```javascript
+
+# 6. return only unique (non-repeating) characters
+
+``` javascript
 
 function uniqueCharacters(str) {
     const map = {};
@@ -105,9 +110,10 @@ function uniqueCharacters(str) {
 
 console.log(uniqueCharacters("programming")); //['p', 'o', 'a', 'i', 'n']
 ```
-# 7. Find Vowels in string
- 
-```javascript
+
+# 7. find vowels in string
+
+``` javascript
 
 function findVowels(str) {
     const vowels = ['a','e','i','o','u']
@@ -120,11 +126,11 @@ function findVowels(str) {
     return char;
 }
 console.log(findVowels("programming")); 
-
 ```
-# 8. Product with pagination (React)
- 
-```javascript
+
+# 8. product list with pagination - React
+
+``` javascript
 import React, { useEffect, useState } from "react";
 
 export default function App() {
@@ -188,9 +194,10 @@ export default function App() {
   );
 }
 ```
-# 8. Promise with timeout and retry mechanism
 
-```javascript
+# 9. Promise with timeout and retry mechanism
+
+``` javascript
 
 async function retry(fn, retries = 3, delay = 1000) {
     for (let attempt = 1; attempt <= retries; attempt++) {
@@ -227,11 +234,11 @@ async function fetchData() {
 retry(fetchData, 4, 2000)
     .then(console.log)
     .catch(console.error);
-
 ```
+
 # 9. Count (+,-,0) using UseReducer
 
-```javascript
+``` javascript
 import React, { useReducer } from "react";
 
 const initialState = 0;
@@ -258,11 +265,11 @@ export default function App() {
         </div>
     );
 }
-
 ```
+
 # 10. theme change with Context
 
-```javascript
+``` javascript
 import React, { createContext, useContext, useState } from "react";
 
 const ThemeContext = createContext("light");
@@ -309,9 +316,10 @@ export default function App() {
     );
 }
 ```
+
 # 11. Task (add, update, delete) with React
 
-```javascript
+``` javascript
 import React, { useState } from "react";
 
 export default function App() {
@@ -412,11 +420,11 @@ export default function App() {
     </div>
   );
 }
-
 ```
+
 # 12. Count Element in Array
 
-```javascript
+``` javascript
 
 function countElementInArray(arr){
     let count = {}
@@ -433,12 +441,11 @@ function countElementInArrayByReduceMethod(arr){
 console.log(countElement([1,2,3,1,2,3,4,5,7,1,2,4]))
 console.log(countByReduce([1,2,3,1,2,3,4,5,7,1,2,4]))
 //{ '1': 3, '2': 3, '3': 2, '4': 2, '5': 1, '7': 1 }
-
 ```
 
 # 13. Find First Non-Repeated Character
 
-```javascript
+``` javascript
 
 function findFirstNotRepeatedChar(str) {
     const count = {};
@@ -459,12 +466,11 @@ function findFirstNotRepeatedChar(str) {
 }
 
 console.log(findFirstNotRepeatedChar("abcdefabcdefgh")); // g
-
 ```
 
 # 14. Toggle Theme and apply on body
 
-```javascript
+``` javascript
 
 export default function App() {
   const [theme, setTheme] = useState("light");
@@ -493,12 +499,11 @@ export default function App() {
     </div>
   );
 }
-
 ```
 
 # 15. Debounce with search field in React
 
-```javascript
+``` javascript
 
 import { useEffect, useState } from "react";
 
@@ -539,7 +544,7 @@ export default function App() {
 
 # 16. Debounce with search field in Javascript
 
-```javascript
+``` javascript
 
 <!DOCTYPE html>
 <html lang="en">
@@ -610,12 +615,11 @@ export default function App() {
 
 </body>
 </html>
-
 ```
 
 # 17. Deep Copy
 
-```javascript
+``` javascript
 
     // Original Array
     const a = [
@@ -670,13 +674,11 @@ export default function App() {
 
     console.log("Original:", a);
     console.log("Recursive Copy:", d);
-
 ```
-
 
 # 17. Deep Copy
 
-```javascript
+``` javascript
 
     // Original Array
     const a = [
@@ -731,22 +733,4 @@ export default function App() {
 
     console.log("Original:", a);
     console.log("Recursive Copy:", d);
-
 ```
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
