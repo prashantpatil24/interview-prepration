@@ -1,6 +1,6 @@
 # JavaScript & React Interview Programs (Practice Collection)
 
-# 1. Curry Function
+# 1. Curry Function (Infinite Currying)
 
 ``` javascript
 //normal curry function
@@ -33,7 +33,7 @@ console.log(arrow_short_sum(1)(2)())//3
 console.log(arrow_short_sum(1)(2)(3)())//6
 ```
 
-# 2. flat array
+# 2. Flatten Array
 
 ``` javascript
 const biDimensionalArr = [11, [22, 33], [44, 55], [66, 77], 88, 99];
@@ -53,7 +53,7 @@ function myFlat(arr){
 console.log(myFlat(biDimensionalArr)) // [11,22,33,44,55,66,77,88,99]
 ```
 
-# 3. find duplicate characters
+# 3. Find Duplicate Characters in a String
 
 ``` javascript
 
@@ -75,7 +75,7 @@ function findDuplicates(str) {
 console.log(findDuplicates("programming")); // ['r','m','g']
 ```
 
-# 4. remove duplicate characters
+# 4. Remove Duplicate Characters from a String
 
 ``` javascript
 
@@ -96,7 +96,7 @@ function removeDuplicatesByFlag(str) {
 console.log(removeDuplicates("programming")); //[ 'p', 'r', 'o',   'g', 'a', 'm', 'i', 'n']
 ```
 
-# 6. return only unique (non-repeating) characters
+# 5. Find Unique (Non-Repeating) Characters
 
 ``` javascript
 
@@ -111,7 +111,7 @@ function uniqueCharacters(str) {
 console.log(uniqueCharacters("programming")); //['p', 'o', 'a', 'i', 'n']
 ```
 
-# 7. find vowels in string
+# 6. Find Vowels in a String
 
 ``` javascript
 
@@ -128,7 +128,7 @@ function findVowels(str) {
 console.log(findVowels("programming")); 
 ```
 
-# 8. product list with pagination - React
+# 7. React Product List with Pagination
 
 ``` javascript
 import React, { useEffect, useState } from "react";
@@ -195,7 +195,7 @@ export default function App() {
 }
 ```
 
-# 9. Promise with timeout and retry mechanism
+# 8. Promise Retry with Timeout Mechanism
 
 ``` javascript
 
@@ -236,7 +236,7 @@ retry(fetchData, 4, 2000)
     .catch(console.error);
 ```
 
-# 9. Count (+,-,0) using UseReducer
+# 9. Counter using useReducer
 
 ``` javascript
 import React, { useReducer } from "react";
@@ -267,7 +267,7 @@ export default function App() {
 }
 ```
 
-# 10. theme change with Context
+# 10. Theme Switching with Context API
 
 ``` javascript
 import React, { createContext, useContext, useState } from "react";
@@ -317,7 +317,7 @@ export default function App() {
 }
 ```
 
-# 11. Task (add, update, delete) with React
+# 11. React Todo CRUD (Add, Update, Delete)
 
 ``` javascript
 import React, { useState } from "react";
@@ -422,7 +422,7 @@ export default function App() {
 }
 ```
 
-# 12. Count Element in Array
+# 12. Count Element Frequency in an Array
 
 ``` javascript
 
@@ -468,7 +468,7 @@ function findFirstNotRepeatedChar(str) {
 console.log(findFirstNotRepeatedChar("abcdefabcdefgh")); // g
 ```
 
-# 14. Toggle Theme and apply on body
+# 14. Toggle Theme and Apply to Body
 
 ``` javascript
 
@@ -501,7 +501,7 @@ export default function App() {
 }
 ```
 
-# 15. Debounce with search field in React
+# 15. Debounced Search in React
 
 ``` javascript
 
@@ -542,7 +542,7 @@ export default function App() {
 }
 ```
 
-# 16. Debounce with search field in Javascript
+# 16. Debounced Search in JavaScript
 
 ``` javascript
 
@@ -617,66 +617,7 @@ export default function App() {
 </html>
 ```
 
-# 17. Deep Copy
-
-``` javascript
-
-    // Original Array
-    const a = [
-        { id: 1, name: "test_1" },
-        { id: 2, name: "test_2" }
-    ];
-
-    // -------------------------
-    // 1. Deep Copy using JSON
-    // -------------------------
-
-    const b = JSON.parse(JSON.stringify(a));
-
-    b[0].name = "test_3";
-
-    console.log("Original:", a);
-    console.log("JSON Copy:", b);
-
-    // -------------------------
-    // 2. Deep Copy using structuredClone()
-    // -------------------------
-
-    const c = structuredClone(a);
-
-    c[0].name = "test_4";
-
-    console.log("Original:", a);
-    console.log("structuredClone:", c);
-
-    // -------------------------
-    // 3. Deep Copy using Recursion
-    // -------------------------
-
-    function deepCopy(obj) {
-
-        if (typeof obj !== "object" || obj === null) {
-            return obj;
-        }
-
-        const copy = Array.isArray(obj) ? [] : {};
-
-        for (const key in obj) {
-            copy[key] = deepCopy(obj[key]);
-        }
-
-        return copy;
-    }
-
-    const d = deepCopy(a);
-
-    d[0].name = "test_5";
-
-    console.log("Original:", a);
-    console.log("Recursive Copy:", d);
-```
-
-# 17. Deep Copy
+# 17. Deep Copy in JavaScript
 
 ``` javascript
 
