@@ -89,8 +89,25 @@ function removeDuplicatesByFlag(str) {
     return result;
 }
 
-console.log(removeDuplicates("programming"));
-//[ 'p', 'r', 'o',   'g', 'a', 'm', 'i', 'n']
+console.log(removeDuplicates("programming")); //[ 'p', 'r', 'o',   'g', 'a', 'm', 'i', 'n']
 ```
+# 6. Return only unique (non-repeating) characters
+ 
+```javascript
+
+function uniqueCharacters(str) {
+    const map = {};
+
+    for (const ch of str) {
+        map[ch] = (map[ch] || 0) + 1;
+    }
+
+    return Object.keys(map).filter(ch => map[ch] === 1);
+}
+
+console.log(uniqueCharacters("programming")); //['p', 'o', 'a', 'i', 'n']
+```
+
+
 
 
