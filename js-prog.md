@@ -414,6 +414,329 @@ export default function App() {
 }
 
 ```
+# 12. Count Element in Array
+
+```javascript
+
+function countElementInArray(arr){
+    let count = {}
+    arr.forEach((item)=> count[item] = (count[item]||0) + 1)
+    return count
+}
+
+function countElementInArrayByReduceMethod(arr){
+    return arr.reduce((acc,item)=> {
+         acc[item] = (acc[item]||0) + 1 
+        return acc
+    },{})
+}
+console.log(countElement([1,2,3,1,2,3,4,5,7,1,2,4]))
+console.log(countByReduce([1,2,3,1,2,3,4,5,7,1,2,4]))
+//{ '1': 3, '2': 3, '3': 2, '4': 2, '5': 1, '7': 1 }
+
+```
+
+# 13. Find First Non-Repeated Character
+
+```javascript
+
+function findFirstNotRepeatedChar(str) {
+    const count = {};
+
+    // Count frequency
+    for (const char of str) {
+        count[char] = (count[char] || 0) + 1;
+    }
+
+    // Find first non-repeated character
+    for (const char of str) {
+        if (count[char] === 1) {
+            return char;
+        }
+    }
+
+    return null; // No unique character found
+}
+
+console.log(findFirstNotRepeatedChar("abcdefabcdefgh")); // g
+
+```
+
+# 14. Toggle Theme and apply on body
+
+```javascript
+
+export default function App() {
+  const [theme, setTheme] = useState("light");
+
+  const toggleTheme = () => {
+    setTheme((prev) => (prev === "light" ? "dark" : "light"));
+  };
+
+  useEffect(() => {
+    document.body.style.backgroundColor =
+      theme === "light" ? "#eee" : "#333";
+
+    document.body.style.color =
+      theme === "light" ? "#000" : "#fff";
+  }, [theme]);
+
+  return (
+    <div>
+      <h2>Theme Switcher</h2>
+
+      <p>Current Theme: {theme}</p>
+
+      <button onClick={toggleTheme}>
+        Toggle Theme
+      </button>
+    </div>
+  );
+}
+
+```
+
+# 15. Debounce with search field in React
+
+```javascript
+
+import { useEffect, useState } from "react";
+
+function useDebounce(value, delay) {
+  const [debouncedValue, setDebouncedValue] = useState(value);
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setDebouncedValue(value);
+    }, delay);
+
+    return () => clearTimeout(timer);
+  }, [value, delay]);
+
+  return debouncedValue;
+}
+
+export default function App() {
+  const [value, setValue] = useState("");
+
+  const debouncedValue = useDebounce(value, 1000);
+
+  return (
+    <div>
+      <h2>Debounced Search</h2>
+
+      <p>Debounced Value: {debouncedValue}</p>
+
+      <input
+        type="text"
+        value={value}
+        onChange={(e) => setValue(e.target.value)}
+      />
+    </div>
+  );
+}
+```
+
+# 16. Debounce with search field in Javascript
+
+```javascript
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Debounce Search</title>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 40px;
+        }
+
+        input {
+            width: 300px;
+            padding: 10px;
+            font-size: 16px;
+        }
+
+        #debounce {
+            display: block;
+            margin-bottom: 15px;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+
+<div id="root">
+    <span id="debounce"></span>
+    <input
+        type="text"
+        id="search"
+        placeholder="Search..."
+    />
+</div>
+
+<script>
+
+    const searchField = document.getElementById("search");
+    const debounceField = document.getElementById("debounce");
+
+    function debounce(fn, delay) {
+        let timer;
+        return function (...args) {
+            clearTimeout(timer);
+            timer = setTimeout(() => {
+                fn(...args);
+            }, delay);
+        };
+    }
+
+    function handleApiCall(e) {
+        const value = e.target.value.trim();
+        if (!value) {
+            debounceField.textContent = "";
+            return;
+        }
+        debounceField.textContent = value;
+        console.log("API Call:", value);
+    }
+
+    const handleSearch = debounce(handleApiCall, 1000);
+    searchField.addEventListener("input", handleSearch);
+
+</script>
+
+</body>
+</html>
+
+```
+
+# 17. Deep Copy
+
+```javascript
+
+    // Original Array
+    const a = [
+        { id: 1, name: "test_1" },
+        { id: 2, name: "test_2" }
+    ];
+
+    // -------------------------
+    // 1. Deep Copy using JSON
+    // -------------------------
+
+    const b = JSON.parse(JSON.stringify(a));
+
+    b[0].name = "test_3";
+
+    console.log("Original:", a);
+    console.log("JSON Copy:", b);
+
+    // -------------------------
+    // 2. Deep Copy using structuredClone()
+    // -------------------------
+
+    const c = structuredClone(a);
+
+    c[0].name = "test_4";
+
+    console.log("Original:", a);
+    console.log("structuredClone:", c);
+
+    // -------------------------
+    // 3. Deep Copy using Recursion
+    // -------------------------
+
+    function deepCopy(obj) {
+
+        if (typeof obj !== "object" || obj === null) {
+            return obj;
+        }
+
+        const copy = Array.isArray(obj) ? [] : {};
+
+        for (const key in obj) {
+            copy[key] = deepCopy(obj[key]);
+        }
+
+        return copy;
+    }
+
+    const d = deepCopy(a);
+
+    d[0].name = "test_5";
+
+    console.log("Original:", a);
+    console.log("Recursive Copy:", d);
+
+```
+
+
+# 17. Deep Copy
+
+```javascript
+
+    // Original Array
+    const a = [
+        { id: 1, name: "test_1" },
+        { id: 2, name: "test_2" }
+    ];
+
+    // -------------------------
+    // 1. Deep Copy using JSON
+    // -------------------------
+
+    const b = JSON.parse(JSON.stringify(a));
+
+    b[0].name = "test_3";
+
+    console.log("Original:", a);
+    console.log("JSON Copy:", b);
+
+    // -------------------------
+    // 2. Deep Copy using structuredClone()
+    // -------------------------
+
+    const c = structuredClone(a);
+
+    c[0].name = "test_4";
+
+    console.log("Original:", a);
+    console.log("structuredClone:", c);
+
+    // -------------------------
+    // 3. Deep Copy using Recursion
+    // -------------------------
+
+    function deepCopy(obj) {
+
+        if (typeof obj !== "object" || obj === null) {
+            return obj;
+        }
+
+        const copy = Array.isArray(obj) ? [] : {};
+
+        for (const key in obj) {
+            copy[key] = deepCopy(obj[key]);
+        }
+
+        return copy;
+    }
+
+    const d = deepCopy(a);
+
+    d[0].name = "test_5";
+
+    console.log("Original:", a);
+    console.log("Recursive Copy:", d);
+
+```
+
+
+
+
 
 
 
