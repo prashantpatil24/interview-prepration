@@ -2,12 +2,14 @@
 
 # Difference between Memoization and Caching
 
-Memoization	                    Caching
-Stores function results	        Stores any type of data
-Input → Output mapping	        Key → Value mapping
-Mostly used for pure functions	Used for API, DB, images, files, etc.
-Usually in memory	            Memory, Redis, Browser, CDN, Database
-Scope is usually local	        Can be shared across applications
+| Memoization                    | Caching                               |
+| ------------------------------ | ------------------------------------- |
+| Stores function results        | Stores any type of data               |
+| Input → Output mapping         | Key → Value mapping                   |
+| Mostly used for pure functions | Used for API, DB, images, files, etc. |
+| Usually in memory              | Memory, Redis, Browser, CDN, Database |
+| Scope is usually local         | Can be shared across applications     |
+
 
 # Difference between `filter()` and `find()`
 
