@@ -1331,4 +1331,64 @@ A collection of commonly asked JavaScript DOM interview programs with complete s
 
 ---
 
+# 8. Progress Bar
+
+## Features
+---
+
+## Source Code
+
+```html
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Progress Bar</title>
+
+    <style>
+        .outer {
+            width: 400px;
+            border: 1px solid #ccc;
+            border-radius: 10px;
+            overflow: hidden;
+        }
+
+        .inner {
+            width: 0%;
+            background: green;
+            color: white;
+            text-align: center;
+            padding: 10px 0;
+            transition: width 0.5s ease-in;
+        }
+    </style>
+</head>
+<body>
+    <div class="outer">
+        <div class="inner" id="inner">0%</div>
+    </div>
+    <script>
+        const inner = document.getElementById("inner");
+        let percentage = 0;
+        function render() {
+            const interval = setInterval(() => {
+                if (percentage > 100) {
+                    clearInterval(interval);
+                    return;
+                }
+                inner.innerHTML = percentage + "%";
+                inner.style.width = percentage + "%";
+                percentage++;
+            }, 100);
+        }
+        render();
+    </script>
+</body>
+</html>
+```
+
+---
+
+
 
