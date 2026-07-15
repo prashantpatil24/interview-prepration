@@ -17,6 +17,8 @@
 | 7 | Promise Retry Mechanism | [Go](#7-promise-retry-with-timeout-mechanism) |
 | 8 | Count Element Frequency | [Go](#8-count-element-frequency-in-an-array) |
 | 9 | Find First Non-Repeated Character | [Go](#9-find-first-non-repeated-character) |
+| 10 | Debounced Search | [Go](#10-debounced-search-in-javascript) |
+| 11 | Deep Copy | [Go](#11-deep-copy-in-javascript) |
 | 12 | Memoization | [Go](#12-memoization) |
 | 13 | Anagram | [Go](#13-anagram) |
 | 14 | Bracket Matcher | [Go](#14-bracket-matcher) |
@@ -295,18 +297,14 @@ async function retry(fn, retries = 3, delay = 1000) {
                 throw err;
             }
 
-            await new Promise(resolve =>
-                setTimeout(resolve, delay)
-            );
+            await new Promise(resolve => setTimeout(resolve, delay));
         }
-
     }
 }
 
 let count = 0;
 
 async function fetchData(){
-
     count++;
 
     console.log("Calling API:", count);
@@ -367,6 +365,10 @@ function countElementInArray(arr) {
     return count;
 }
 
+console.log(
+    countElementInArray([1,2,3,1,2,3,4,5,7,1,2,4])
+);
+
 // Using reduce
 function countElementInArrayByReduceMethod(arr) {
     return arr.reduce((acc, item) => {
@@ -374,10 +376,6 @@ function countElementInArrayByReduceMethod(arr) {
         return acc;
     }, {});
 }
-
-console.log(
-    countElementInArray([1,2,3,1,2,3,4,5,7,1,2,4])
-);
 
 console.log(
     countElementInArrayByReduceMethod([1,2,3,1,2,3,4,5,7,1,2,4])
@@ -460,144 +458,6 @@ O(n)
 ```
 O(n)
 ```
-
-⬆️ [Back to Top](#-table-of-contents)
-
----
-| 10 | Debounced Search | [Go](#10-debounced-search-in-javascript) |
-| 11 | Deep Copy | [Go](#11-deep-copy-in-javascript) |
-
----
-
-# 10. Debounced Search in JavaScript
-
-### Problem
-
-Implement a debounced search input to prevent unnecessary API calls while the user is typing.
-
-### Solution
-
-```html
-<!DOCTYPE html>
-<html lang="en">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Debounce Search</title>
-
-<style>
-body{
-    font-family: Arial, sans-serif;
-    margin:40px;
-}
-
-input{
-    width:300px;
-    padding:10px;
-    font-size:16px;
-}
-
-#debounce{
-    display:block;
-    margin-bottom:15px;
-    font-weight:bold;
-}
-</style>
-
-</head>
-
-<body>
-
-<div id="root">
-    <span id="debounce"></span>
-
-    <input
-        id="search"
-        type="text"
-        placeholder="Search..."
-    />
-</div>
-
-<script>
-
-const searchField = document.getElementById("search");
-const debounceField = document.getElementById("debounce");
-
-function debounce(fn, delay){
-
-    let timer;
-
-    return function(...args){
-
-        clearTimeout(timer);
-
-        timer = setTimeout(()=>{
-            fn(...args);
-        }, delay);
-
-    }
-
-}
-
-function handleApiCall(e){
-
-    const value = e.target.value.trim();
-
-    if(!value){
-        debounceField.textContent = "";
-        return;
-    }
-
-    debounceField.textContent = value;
-
-    console.log("API Call:", value);
-
-}
-
-const handleSearch = debounce(handleApiCall,1000);
-
-searchField.addEventListener("input", handleSearch);
-
-</script>
-
-</body>
-</html>
-```
-
-### Output
-
-```
-User types:
-r
-re
-rea
-reac
-react
-
-(wait 1 second)
-
-API Call: react
-```
-
-### Time Complexity
-
-```
-O(1)
-```
-
-### Space Complexity
-
-```
-O(1)
-```
-
-### Interview Follow-up
-
-- Difference between Debounce and Throttle?
-- Why use `clearTimeout()`?
-- Where is Debounce commonly used?
-- Can Debounce return a Promise?
-- Implement Debounce with Leading & Trailing options.
 
 ⬆️ [Back to Top](#-table-of-contents)
 
@@ -823,9 +683,7 @@ Determine whether two strings are anagrams.
 
 ```javascript
 function isAnagram(source, target) {
-
-    return source.split("").sort().join("") ===
-           target.split("").sort().join("");
+    return source.split("").sort().join("") === target.split("").sort().join("");
 }
 
 console.log(isAnagram("listen", "silent"));
@@ -1243,12 +1101,7 @@ Array.prototype.myReducer = function (callback, initialValue) {
     }
 
     for (let i = startIndex; i < this.length; i++) {
-        accumulator = callback(
-            accumulator,
-            this[i],
-            i,
-            this
-        );
+        accumulator = callback(accumulator, this[i], i, this);
     }
 
     return accumulator;
@@ -1312,7 +1165,6 @@ console.log(flatArray);
 function flatten(arr) {
 
     return arr.reduce((acc, item) => {
-
         return acc.concat(
             Array.isArray(item)
                 ? flatten(item)
