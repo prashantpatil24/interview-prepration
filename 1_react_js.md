@@ -343,11 +343,7 @@ export default function App() {
 ## Source Code
 
 ```jsx
-import React, {
-  createContext,
-  useContext,
-  useState,
-} from "react";
+import React, { createContext, useContext, useState,} from "react";
 
 const ThemeContext = createContext("light");
 
@@ -372,7 +368,6 @@ export default function App() {
   return (
     <ThemeContext.Provider value={theme}>
       <ThemeButton />
-
       <button
         onClick={() =>
           setTheme((prev) =>
@@ -508,19 +503,11 @@ export default function App() {
           <li key={task.id}>
             {task.text}
 
-            <button
-              onClick={() =>
-                editTask(task.id)
-              }
-            >
+            <button  onClick={() =>  editTask(task.id) } >
               Edit
             </button>
 
-            <button
-              onClick={() =>
-                deleteTask(task.id)
-              }
-            >
+            <button  onClick={() => deleteTask(task.id) } >
               Delete
             </button>
           </li>
@@ -570,14 +557,10 @@ export default function App() {
 ## Source Code
 
 ```jsx
-import React, {
-  useEffect,
-  useState,
-} from "react";
+import React, { useEffect, useState,} from "react";
 
 export default function App() {
-  const [theme, setTheme] =
-    useState("light");
+  const [theme, setTheme] = useState("light");
 
   const toggleTheme = () => {
     setTheme((prev) =>
@@ -649,14 +632,10 @@ export default function App() {
 ## Source Code
 
 ```jsx
-import {
-  useEffect,
-  useState,
-} from "react";
+import React, { useEffect, useState } from "react";
 
 function useDebounce(value, delay) {
-  const [debouncedValue, setDebouncedValue] =
-    useState(value);
+  const [debouncedValue, setDebouncedValue] = useState(value);
 
   useEffect(() => {
     const timer = setTimeout(() => {
@@ -670,11 +649,9 @@ function useDebounce(value, delay) {
 }
 
 export default function App() {
-  const [value, setValue] =
-    useState("");
+  const [value, setValue] = useState("");
 
-  const debouncedValue =
-    useDebounce(value, 1000);
+  const debouncedValue =  useDebounce(value, 1000);
 
   return (
     <div>
@@ -1172,20 +1149,10 @@ export default function App() {
 ## Source Code
 
 ```jsx
-import React, {
-  useEffect,
-  useMemo,
-  useState,
-} from "react";
+import React, {  useEffect,  useMemo, useState,} from "react";
 
-const useDebounce = (
-  value,
-  delay
-) => {
-  const [
-    debouncedValue,
-    setDebouncedValue,
-  ] = useState(value);
+const useDebounce = (value,  delay) => {
+  const [ debouncedValue, setDebouncedValue ] = useState(value);
 
   useEffect(() => {
     const timer = setTimeout(() => {
