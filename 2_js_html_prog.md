@@ -17,6 +17,7 @@ A collection of commonly asked JavaScript DOM interview programs with complete s
 | 7 | Product Search with Categories | [Go](#7-product-search-with-categories) |
 | 8 | Progress Bar |  [Go](#8-progress-bar) |
 | 9 | Debounced Search in JavaScript |  [Go](#9-debounce) |
+| 10 | Todo Cards by User |  [Go](#10-todo-card) |
 
 ---
 
@@ -1522,7 +1523,156 @@ O(1)
 ⬆️ [Back to Top](#-table-of-contents)
 
 ---
+# 10. Todo Cards by User - JavaScript
 
+## Source Code
+
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Todo Cards by User</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            padding: 30px;
+            background: #f5f5f5;
+        }
+
+        h2 {
+            margin-bottom: 20px;
+        }
+
+        #loading {
+            display: none;
+            font-size: 18px;
+            margin-bottom: 20px;
+            color: #555;
+        }
+
+        #product {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+
+        .card {
+            width: 300px;
+            background: #fff;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            padding: 16px;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .card h3 {
+            margin: 0 0 12px;
+            color: #333;
+        }
+
+        .todo {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 6px 0;
+            border-bottom: 1px solid #eee;
+        }
+
+        .todo:last-child {
+            border-bottom: none;
+        }
+    </style>
+</head>
+
+<body>
+
+    <h2>Todos Grouped by User</h2>
+
+    <p id="loading">Loading...</p>
+
+    <div id="product"></div>
+
+    <script>
+        const loading = document.getElementById("loading");
+        const root = document.getElementById("product");
+
+        function render(groupedTodos) {
+            root.innerHTML = "";
+
+            groupedTodos.forEach(userTodos => {
+                const card = document.createElement("div");
+                card.className = "card";
+
+                const title = document.createElement("h3");
+                title.textContent = `User #${userTodos[0].userId}`;
+                card.appendChild(title);
+
+                userTodos.forEach(todo => {
+                    const row = document.createElement("div");
+                    row.className = "todo";
+
+                    row.innerHTML = `
+                        <input type="checkbox" ${todo.completed ? "checked" : ""} disabled>
+                        <span>${todo.todo}</span>
+                    `;
+
+                    card.appendChild(row);
+                });
+
+                root.appendChild(card);
+            });
+        }
+
+        async function fetchData() {
+            loading.style.display = "block";
+
+            try {
+                const response = await fetch("https://dummyjson.com/todos?limit=10&skip=80");
+
+                if (!response.ok) {
+                    throw new Error("Failed to fetch todos");
+                }
+
+                const data = await response.json();
+
+                // Group todos by userId
+                const groupedById = {};
+
+                data.todos.forEach(todo => {
+                    if (!groupedById[todo.userId]) {
+                        groupedById[todo.userId] = [];
+                    }
+
+                    groupedById[todo.userId].push(todo);
+                });
+
+                render(Object.values(groupedById));
+
+            } catch (error) {
+                console.error(error);
+                root.innerHTML = "<p>Failed to load todos.</p>";
+            } finally {
+                loading.style.display = "none";
+            }
+        }
+
+        fetchData();
+    </script>
+
+</body>
+</html>
+```
+
+⬆️ [Back to Top](#-table-of-contents)
+
+---
 
 
 
