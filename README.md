@@ -1,9 +1,9 @@
-# interview-prog
-Share list of program
-1. Todo List - Js
-2. Search Product - Js
-3. Product List with Pagination - Js
-4. Load More Data - Js
-5. Load 100 Data - Js
-6. Curry Function - Js
-7. Center Div- Html
+# Versions
+Spring Boot => 4.1.0
+Java => 26 
+React => 19
+Python => 3.14
+Typescript => 5.0
+Javascript =>  ES2026
+
+
