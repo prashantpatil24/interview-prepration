@@ -545,4 +545,111 @@ Encourage:
 > I first measured the problem using React Profiler, identified unnecessary component re-renders caused by unstable props and large DOM rendering, then optimized selectively with React.memo, useCallback, useMemo, and virtualization.
 
 ---
+# Frontend System Design
+
+## Design a Scalable E-commerce Frontend
+
+### 1. Architecture Style
+
+- Feature-based architecture
+- Microfrontends (if needed)
+- Component-driven design
+
+---
+
+### 2. Folder Structure
+
+```text
+src/
+├── features/
+├── shared/
+├── components/
+├── hooks/
+├── services/
+├── routes/
+├── store/
+├── utils/
+└── assets/
+```
+
+---
+
+### 3. State Management
+
+- Local → `useState`
+- Complex local → `useReducer`
+- Global → Redux Toolkit / Zustand
+- Server → TanStack Query
+
+---
+
+### 4. Rendering Strategy
+
+- SSR → Product pages
+- CSR → Dashboard
+- SSG → Marketing pages
+- React Server Components where appropriate
+
+---
+
+### 5. Performance
+
+- Code splitting
+- Lazy loading
+- Virtualization
+- Image optimization
+- CDN
+- Caching
+- Memoization
+- Bundle optimization
+
+---
+
+### 6. API & Data Layer
+
+- API abstraction layer
+- Axios/Fetch wrapper
+- Retry mechanism
+- Request cancellation
+- TanStack Query caching
+
+---
+
+### 7. Reliability & Observability
+
+- Error Boundaries
+- Logging
+- Monitoring
+- Performance metrics
+- Analytics
+- Feature flags
+
+---
+
+### 8. Security
+
+- XSS protection
+- CSRF protection
+- CSP headers
+- Secure authentication
+- HTTPS
+- Token management
+
+---
+
+### 9. Team Scalability
+
+- Design system
+- Shared component library
+- Coding standards
+- CI/CD
+- Automated testing
+- Documentation
+- Independent deployments
+
+---
+
+## Interview One-Liner
+
+> For a scalable e-commerce frontend, I would use a feature-based architecture with Redux Toolkit for client state, TanStack Query for server state, SSR for SEO-critical pages, code splitting and virtualization for performance, a reusable design system for consistency, and strong observability and security practices to support large engineering teams.
 
