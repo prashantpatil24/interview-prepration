@@ -138,7 +138,10 @@ System.out.println(s);
 Hello
 ```
 
+> String is immutable in Java, meaning once a String object is created its value cannot be changed. Any modification creates a new String object. Java made String immutable for several reasons: security, since Strings store sensitive data like passwords and URLs; efficient memory usage through the String Constant Pool; thread safety because immutable objects can be shared across threads; and better performance by caching hash codes, which makes lookups in collections like HashMap faster. If mutable strings are needed, we use StringBuilder or StringBuffer
 ---
+
+
 
 # Q7. Can a Static Method access Non-Static Variables?
 
