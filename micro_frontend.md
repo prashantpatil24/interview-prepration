@@ -491,3 +491,29 @@ shared: {
 ```
 Usually a singleton React instance is preferred to avoid runtime issues.
 
+## Explain Module Federation configuration.
+
+Remote (webpack.config.js):
+```javascript
+    new ModuleFederationPlugin({
+        name: \"header\",
+        filename: \"remoteEntry.js\",
+        exposes: {
+            \"./Header\": \"./src/Header\" 
+        },
+        shared: {
+            react: { singleton: true },
+        \"react-dom\": { singleton: true }
+        }
+    });
+```
+Host (webpack.config.js):
+
+```javascript
+    new ModuleFederationPlugin({
+    remotes: {
+        header: \"header@http://localhost:3001/remoteEntry.js\"
+    }
+});
+```
+
