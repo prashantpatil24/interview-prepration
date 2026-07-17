@@ -795,28 +795,17 @@ These are **not objects**.
 
 ### Interview Answer
 
-> **Java is mostly object-oriented, but not completely, because it supports primitive data types in addition to objects.**
+> Java is mostly object-oriented, but not completely, because it supports primitive data types in addition to objects.
 
 ---
 
-# Quick Interview Summary
+# What is HashMap?
 
-| Topic | Key Point |
-|--------|-----------|
-| Error vs Exception | Error = JVM failure, Exception = Recoverable |
-| Parent Class | `Throwable` |
-| Checked Exception | Compiler checks |
-| Unchecked Exception | RuntimeException |
-| Garbage Collection | Removes unreachable objects |
-| `System.gc()` | Only requests GC |
-| `final` | Prevents modification |
-| `finally` | Always executes (except JVM termination) |
-| `finalize()` | Deprecated |
-| `main()` | Program entry point |
-| HashMap Capacity | 16 |
-| HashMap Load Factor | 0.75 |
-| ArrayList Initial Capacity | 10 (on first insertion) |
-| Immutable Class | `String` |
-| Java OOP | Not 100% object-oriented due to primitives |
-
+> HashMap is a class in the Java Collections Framework that stores data as key-value pairs.
+- Keys are unique
+- Values can be duplicate
+- Allows one null key
+- Allows multiple null values
+- Does not maintain insertion order
+- Not thread-safe
 ---
