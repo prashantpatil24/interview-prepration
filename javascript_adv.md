@@ -300,24 +300,17 @@ console.log(username ?? "Guest"); // ""
 | Cannot add `Promise`, `fetch`, or `includes()` by itself | Can provide `Promise`, `fetch`, `includes()`, etc. |
 | Example: Arrow Functions, Classes, Template Literals | Example: `Promise`, `fetch`, `Map`, `Set`, `Array.includes()` |
 
-  ------------------------------------------------------------------------
-  **Feature**      **Babel**                      **Polyfill**
-  ---------------- ------------------------------ ------------------------
-  Purpose          Converts modern JavaScript     Adds missing JavaScript
-                   syntax into older syntax       features/APIs
+ | **Feature** | **Babel** | **Polyfill** |
+|-------------|-----------|--------------|
+| **Purpose** | Converts modern JavaScript syntax into older syntax | Adds missing JavaScript features/APIs |
+| **What it does** | **Transpiles** modern JavaScript | **Implements missing browser APIs** |
+| **Handles** | Arrow functions, Classes, Template Literals, Optional Chaining, Nullish Coalescing, Async/Await, JSX | `Promise`, `Map`, `Set`, `Array.includes()`, `Array.from()`, `fetch` (not all), `Object.assign()`, etc. |
+| **Changes syntax?** | ✅ Yes | ❌ No |
+| **Adds runtime code?** | ❌ Not by itself | ✅ Yes |
+| **Works at** | Build Time | Runtime |
+| **Browser Compatibility** | Converts unsupported syntax | Provides missing functionality in older browsers |
+| **Common Tool** | `@babel/core`, `@babel/preset-env` | `core-js`, `regenerator-runtime` |
 
-  What it does     **Transpiles** code            **Implements missing
-                                                  APIs**
-
-  Handles          Arrow functions, classes,      Promise,
-                   optional chaining, async       Array.includes(), Map,
-                   syntax, JSX                    Set, fetch (not all),
-                                                  etc.
-
-  Changes syntax?  ✅ Yes                         ❌ No
-
-  Adds runtime     ❌ Not by itself               ✅ Yes
-  code?                                           
   ------------------------------------------------------------------------
   # Tailwind CSS vs Bootstrap
 
@@ -489,7 +482,218 @@ Object.defineProperties(obj, {
     - Supports array methods (map, filter, reduce)
     - Preferred in modern JavaScript
 
+# Difference Between `Object.seal()` and `Object.freeze()`
 
+| Feature | `Object.seal()` | `Object.freeze()` |
+|---------|-----------------|-------------------|
+| **Add new properties** | ❌ No | ❌ No |
+| **Delete existing properties** | ❌ No | ❌ No |
+| **Modify existing property values** | ✅ Yes | ❌ No |
+| **Change property descriptors** | ❌ No | ❌ No |
+| **Makes object immutable?** | ❌ Partially | ✅ Completely (Shallow) |
+| **Use Case** | Prevent structural changes while allowing value updates | Create read-only objects |
+
+---
+
+# `Object.seal()`
+
+`Object.seal()` prevents:
+
+- Adding new properties
+- Deleting existing properties
+- Reconfiguring property descriptors
+
+But **existing property values can still be modified**.
+
+### Example
+
+```javascript
+const user = {
+  name: "Prashant",
+  age: 30
+};
+
+Object.seal(user);
+
+user.age = 31;        // ✅ Allowed
+user.city = "Pune";   // ❌ Not Allowed
+delete user.name;     // ❌ Not Allowed
+
+console.log(user);
+```
+
+### Output
+
+```javascript
+{
+  name: "Prashant",
+  age: 31
+}
+```
+
+---
+
+# `Object.freeze()`
+
+`Object.freeze()` prevents:
+
+- Adding properties
+- Deleting properties
+- Modifying property values
+- Reconfiguring property descriptors
+
+The object becomes **read-only**.
+
+### Example
+
+```javascript
+const user = {
+  name: "Prashant",
+  age: 30
+};
+
+Object.freeze(user);
+
+user.age = 31;        // ❌ Ignored (or throws in strict mode)
+user.city = "Pune";   // ❌ Not Allowed
+delete user.name;     // ❌ Not Allowed
+
+console.log(user);
+```
+
+### Output
+
+```javascript
+{
+  name: "Prashant",
+  age: 30
+}
+```
+
+---
+
+# Important Interview Question
+
+## Is `Object.freeze()` Deep Freeze?
+
+**No.**
+
+`Object.freeze()` is **shallow**.
+
+If an object contains nested objects, those nested objects can still be modified.
+
+### Example
+
+```javascript
+const employee = {
+  name: "Prashant",
+  address: {
+    city: "Pune"
+  }
+};
+
+Object.freeze(employee);
+
+employee.address.city = "Mumbai"; // ✅ Allowed
+
+console.log(employee.address.city);
+```
+
+### Output
+
+```text
+Mumbai
+```
+
+To make nested objects immutable, you need a **Deep Freeze** implementation.
+
+---
+
+# Checking Object State
+
+### `Object.isSealed()`
+
+```javascript
+const obj = { a: 1 };
+
+Object.seal(obj);
+
+console.log(Object.isSealed(obj));
+```
+
+### Output
+
+```text
+true
+```
+
+---
+
+### `Object.isFrozen()`
+
+```javascript
+const obj = { a: 1 };
+
+Object.freeze(obj);
+
+console.log(Object.isFrozen(obj));
+```
+
+### Output
+
+```text
+true
+```
+
+---
+
+# When to Use?
+
+### Use `Object.seal()`
+
+- Configuration objects whose values may change
+- Prevent accidental addition or deletion of properties
+- Lock the object's structure while allowing updates
+
+---
+
+### Use `Object.freeze()`
+
+- Constants
+- Redux state (to catch accidental mutations during development)
+- Application configuration
+- Enum-like objects
+
+---
+
+# Easy Memory Trick
+
+```text
+Object.seal()
+     🔒
+Structure Locked
+Values can change
+```
+
+```text
+Object.freeze()
+     ❄️
+Everything Locked
+Nothing can change
+```
+
+---
+
+# Interview Answer (1 Minute)
+
+`Object.seal()` prevents adding or deleting properties and changing property descriptors, but it still allows modifying existing property values.
+
+`Object.freeze()` is stricter. It prevents adding, deleting, and modifying properties, making the object effectively read-only. However, `Object.freeze()` performs a **shallow freeze**, so nested objects can still be modified unless they are also frozen.
+
+In short:
+
+- **`Object.seal()` → Lock the structure, allow value updates.**
+- **`Object.freeze()` → Lock both the structure and property values (shallow).**
 
 # Compiler vs Interpreter
 
