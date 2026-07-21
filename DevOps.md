@@ -408,3 +408,15 @@ CD
 GitHub Actions
 → GitHub Automation
 ```
+
+# Deployment Strategies
+
+Deployment strategies define **how a new version of an application is released to users** while minimizing downtime and reducing deployment risk.
+
+| Deployment Strategy | Downtime | Rollback | Use Case |
+|---------------------|----------|----------|----------|
+| ✅ **Blue/Green** | **Zero or Near-Zero** | ⭐ Very Fast | Production releases with minimal disruption |
+| **Rolling** | Minimal (Not Guaranteed Zero) | Moderate | Kubernetes, Microservices |
+| **Canary** | Minimal | Fast | Gradual rollout to a small percentage of users |
+| **In-place (Recreate)** | ❌ Yes | Slow | Small applications, Development environments |
+
