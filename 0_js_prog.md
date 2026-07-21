@@ -126,7 +126,9 @@ console.log(myFlat(biDimensionalArr));
 44,55,66,
 77,88,99
 ]
-
+```
+# Mix Flat and Count element 
+```javascript
 function flatArr(arr, result = {}) {
     arr.forEach(item => {
         if (Array.isArray(item)) {
@@ -140,6 +142,7 @@ function flatArr(arr, result = {}) {
 }
 
 console.log(flatArr([1, 2, 3, [4, 5, [6, 7]]]));
+//{ '1': 1, '2': 1, '3': 1, '4': 1, '5': 1, '6': 1, '7': 1 }
 ```
 
 ⬆️ [Back to Top](#-table-of-contents)
