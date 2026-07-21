@@ -1,5 +1,21 @@
 ## React Interview Question   
 
+### Type of component
+
+| Component Type | Definition | State | Hooks | Optimization |
+|---------------|------------|-------|-------|--------------|
+| Functional Component | Function that returns JSX | ✅ Yes | ✅ Yes | `React.memo()` |
+| Class Component | ES6 class extending `React.Component` | ✅ Yes | ❌ No | `shouldComponentUpdate()` |
+| Pure Component | Class extending `React.PureComponent` | ✅ Yes | ❌ No | Automatic shallow comparison |
+| Higher-Order Component (HOC) | Function that takes a component and returns an enhanced component | Depends | Depends | Code reuse |
+
+### Interview Answer (30 Seconds)
+
+- **Functional Components** are JavaScript functions that return JSX and use Hooks for state and lifecycle features.
+- **Class Components** are ES6 classes extending `React.Component` that manage state using lifecycle methods.
+- **Pure Components** extend `React.PureComponent` and prevent unnecessary re-renders by performing a shallow comparison of props and state.
+- **Higher-Order Components (HOCs)** are functions that take a component as input and return a new enhanced component with additional functionality, enabling code reuse.
+- 
 # Controlled vs Uncontrolled Components
 
 | Controlled Component         | Uncontrolled Component                            |
