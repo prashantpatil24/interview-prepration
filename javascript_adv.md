@@ -1,5 +1,141 @@
 ## Javascript Interview Question   
 
+
+## Q: What is the difference between Currying and Function Composition?
+
+### Answer:
+
+| Feature | Currying | Function Composition |
+|---------|-----------|----------------------|
+| **Purpose** | Breaks a function with multiple arguments into a sequence of functions, each taking one argument. | Combines multiple functions into a single function where the output of one becomes the input of the next. |
+| **Input** | A function with multiple parameters. | Two or more functions. |
+| **Output** | Nested functions that accept one argument at a time. | A new composed function. |
+| **Syntax** | `add(1)(2)(3)` | `compose(f, g)(x)` or `pipe(f, g)(x)` |
+| **Main Use** | Partial application and reusable functions. | Building data transformation pipelines. |
+
+---
+
+## 1. Currying
+
+Currying transforms a function with multiple arguments into a chain of functions that each accept **one argument**.
+
+### Example
+
+```javascript
+function add(a) {
+  return function (b) {
+    return function (c) {
+      return a + b + c;
+    };
+  };
+}
+
+console.log(add(1)(2)(3)); // 6
+```
+
+### Real-world Example
+
+```javascript
+const multiply = a => b => a * b;
+
+const double = multiply(2);
+const triple = multiply(3);
+
+console.log(double(5)); // 10
+console.log(triple(5)); // 15
+```
+
+**Use Cases**
+- Partial application
+- Creating reusable functions
+- Functional programming
+
+---
+
+## 2. Function Composition
+
+Function composition combines multiple functions into one, where the output of one function becomes the input of the next.
+
+```text
+x → g(x) → f(g(x))
+```
+
+### Example
+
+```javascript
+const add2 = x => x + 2;
+const multiply3 = x => x * 3;
+
+const compose = (f, g) => x => f(g(x));
+
+const result = compose(multiply3, add2);
+
+console.log(result(5)); // (5 + 2) * 3 = 21
+```
+
+### Another Example
+
+```javascript
+const trim = str => str.trim();
+const capitalize = str => str.toUpperCase();
+
+const format = compose(capitalize, trim);
+
+console.log(format(" react ")); // REACT
+```
+
+**Use Cases**
+- Data transformation
+- Redux middleware
+- RxJS
+- Functional programming pipelines
+
+---
+
+## Easy Way to Remember
+
+### Currying
+
+```text
+One function
+        ↓
+Many arguments
+        ↓
+One argument at a time
+
+add(1)(2)(3)
+```
+
+### Composition
+
+```text
+Input
+  ↓
+Function A
+  ↓
+Function B
+  ↓
+Function C
+  ↓
+Output
+```
+
+---
+
+## Interview Answer (30 Seconds)
+
+- **Currying** converts a function with multiple arguments into a chain of functions that each take one argument. It's mainly used for **partial application** and creating reusable functions.
+- **Function Composition** combines two or more functions into a single function, where the output of one function becomes the input of the next. It's commonly used for **data transformation pipelines** and writing clean, reusable code.
+
+### Quick Example
+
+```javascript
+// Currying
+add(1)(2)(3);
+
+// Composition
+compose(multiply3, add2)(5);
+```
 # Compiled vs Interpreted Languages
 
 | Language | Compiled | Interpreted |
