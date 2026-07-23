@@ -1666,3 +1666,64 @@ export default function App() {
 ```
 
 ---
+
+# 13. Update Div base on color click
+
+```javascript
+
+import React from "react";
+import "./style.css";
+
+const BoxStyle = ({id, color, onClick}) =>{
+    return(
+      <div style={{
+        width: "50px",
+        height: "50px",
+        margin: '10px',
+        background: color,
+      }} onClick={()=> onClick(id)}>
+      </div>
+    )
+}
+const colors = [
+  { id: 1, color:'red'},
+  { id: 2, color:'green'},
+  { id: 3, color:'red'},
+
+]
+export default function App() {
+  const [color, setColors] = React.useState(colors)
+  //color : green click -> remove ite
+  //color : red click -> make it red and add one more green
+  const handleClick = (id) =>{
+    const selectedColor = color.find((item) => item.id === id);
+    if (selectedColor.color === "red") {
+      setColors((prev)=> prev.map((p) => 
+         p.id === id ? { ...p, color: "green" } : p
+      ))
+      const item =  {
+        id: color + 1,
+        color: "red",
+      }
+      setColors((prev)=> [...prev, item])
+    }else{
+      setColors((prev)=> prev.filter((p)=> p.id !== id))
+    }
+  }
+
+
+  return (
+    <div>
+      <h1>Hello StackBlitz!</h1>
+      {
+       color.map((c)=>(
+         <div key={c.id}>
+         <BoxStyle id={c.id} color={c.color} onClick={handleClick} />
+         </div>
+       ))
+     }
+    </div>
+  );
+}
+
+```
